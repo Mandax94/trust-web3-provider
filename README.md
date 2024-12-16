@@ -39,4 +39,4 @@ wallet to connect with decentralized applications.
 
 [Contributing](/docs/BUILD.md)
 
-[Adding a new chain](/docs/NEW.md)
+[Adding a new chain](/docs/NEW.md) 
