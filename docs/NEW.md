@@ -22,4 +22,4 @@ Then you can build it using the command
 
 ```bash
 bun run build:packages
-```
+```install 
