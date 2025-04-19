@@ -127,10 +127,10 @@ export class MobileAdapter {
       case 'tonConnect_sendTransaction': {
         const tx = (params as object[])[0] as ITransaction;
 
-        this.validateNetwork(tx);
-        this.validateMessagesAddresses(tx);
-        this.validateFromAddress(tx);
-        this.validateTransaction(MobileAdapter.mapToCamelCase(tx));
+        // this.validateNetwork(tx);
+        //this.validateMessagesAddresses(tx);
+        //this.validateFromAddress(tx);
+        //this.validateTransaction(MobileAdapter.mapToCamelCase(tx));
 
         const res = await this.provider.internalRequest<string>(
           'signTransaction',
@@ -192,7 +192,7 @@ export class MobileAdapter {
     }
 
     // throw error if valid until is not a number
-    if (typeof tx.valid_until !== 'number') {
+    if (tx.valid_until && typeof tx.valid_until !== 'number') {
       console.error('Invalid valid_until type');
       throw new TonConnectError('Bad request', 1);
     }
@@ -214,7 +214,7 @@ export class MobileAdapter {
 
     if (!collection.includes(tx.from)) {
       console.error('from field does not match any user address');
-      throw new TonConnectError('Bad request', 1);
+      throw new TonConnectError('Bad request');
     }
   }
 
@@ -226,7 +226,7 @@ export class MobileAdapter {
     // Message addresses can not be raw
     if (tx.messages.some((e) => e.address.includes(':'))) {
       console.error('Bad request, message address is invalid');
-      throw new TonConnectError('Bad request', 1);
+      throw new TonConnectError('Bad request');
     }
   }
 
@@ -237,7 +237,7 @@ export class MobileAdapter {
   validateNetwork(tx: ITransaction) {
     if (tx.network !== '-239') {
       console.error('Bad request, network id is invalid');
-      throw new TonConnectError('Bad request', 1);
+      throw new TonConnectError('Bad request');
     }
   }
 }
